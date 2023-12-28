@@ -1,2 +1,2 @@
 # dedupgo
-Simple duplicate file searcher written in Go
+Simple duplicate file detector written in Go
