@@ -2,6 +2,7 @@ package internal
 
 type node[T any] struct {
 	value T
+	depth int
 	next  *node[T]
 }
 
@@ -19,8 +20,8 @@ func (q *Queue[T]) Length() int {
 	return q.length
 }
 
-func (q *Queue[T]) Enqueue(data T) {
-	node := &node[T]{data, nil}
+func (q *Queue[T]) Enqueue(data T, depth int) {
+	node := &node[T]{data, depth, nil}
 	if q.length == 0 {
 		q.first = node
 		q.last = node
@@ -32,22 +33,22 @@ func (q *Queue[T]) Enqueue(data T) {
 	q.last = node
 }
 
-func (q *Queue[T]) Dequeue() T {
+func (q *Queue[T]) Dequeue() (T, int) {
 	var x T
 	if q.length == 0 {
-		return x
+		return x, 0
 	}
-	returnValue := q.first.value
+	previousFirst := q.first
 	if q.length == 1 {
 		q.first = nil
 		q.last = nil
 		q.length = 0
-		return returnValue
+		return previousFirst.value, previousFirst.depth
 	}
 	q.length -= 1
 	q.first = q.first.next
 	if q.length == 1 {
 		q.last = q.first
 	}
-	return returnValue
+	return previousFirst.value, previousFirst.depth
 }

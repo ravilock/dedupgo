@@ -40,12 +40,15 @@ func find(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	directoryQueue.Enqueue(dirPath)
+	directoryQueue.Enqueue(dirPath, 0)
 
 	files := make([]string, 0)
 
-	for currentDepth := 0; directoryQueue.Length() != 0; {
-		currentDir := directoryQueue.Dequeue()
+	for directoryQueue.Length() != 0 {
+		currentDir, currentDepth := directoryQueue.Dequeue()
+		if currentDir == "" || (depth != 0 && currentDepth == depth) {
+			break
+		}
 
 		dirEntries, err := os.ReadDir(currentDir)
 		if err != nil {
@@ -55,18 +58,12 @@ func find(cmd *cobra.Command, args []string) error {
 		for _, entry := range dirEntries {
 			entryPath := path.Join(currentDir, entry.Name())
 			if entry.IsDir() {
-				directoryQueue.Enqueue(entryPath)
+				directoryQueue.Enqueue(entryPath, currentDepth+1)
 			} else {
 				files = append(files, entryPath)
 			}
 		}
 
-		if depth != 0 {
-			if currentDepth == depth {
-				break
-			}
-      currentDepth++ // FIXME: Using this approach with a queue will cause bugs on the depth flag, re-implement using a tree or heap
-		}
 		if !recursive && depth == 0 {
 			break
 		}
