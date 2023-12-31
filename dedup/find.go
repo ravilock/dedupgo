@@ -23,7 +23,7 @@ type FindOptions struct {
 	// Mode represents the mode that the Find function will execute, it has 3 different possiblities:
 	//  - Normal: Search for duplicated files in current directory only, this option will not dive into any sub-directories
 	//  - Recursive: Recrusively search through all sub-directories, this option will only stop when there are not sub-directories left
-	//  - Depth: Define a sub-directories depth limit, this will only dive to the n-th directory (n being the limit passed)
+	//  - Depth: Define a sub-directories depth limit, this will only dive to the n-th directory depth (n being the limit passed)
 	// Default value is Normal
 	Mode FindMode
 
