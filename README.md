@@ -8,9 +8,7 @@ Feel free to open issues for bugs, feature requests, improvements and missing te
 
 Following Pull Requests will be appreciated!
 
-# Installation
-
-# Usage
+# Installation and Usage
 
 ## CLI
 
