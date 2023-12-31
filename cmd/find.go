@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// TODO: defer all directory and file closes calls
+
 func init() {
 	rootCmd.AddCommand(findCmd)
 
@@ -32,33 +34,38 @@ var findCmd = &cobra.Command{
 	RunE:  find,
 }
 
+type directory struct {
+	path  string
+	depth int
+}
+
 func find(cmd *cobra.Command, args []string) error {
-	directoryQueue := &internal.Queue[string]{}
+	directoryQueue := &internal.Queue[directory]{}
 
 	dirPath, err := directoryPath(args)
 	if err != nil {
 		return err
 	}
 
-	directoryQueue.Enqueue(dirPath, 0)
+	directoryQueue.Enqueue(directory{dirPath, 0})
 
 	files := make([]string, 0)
 
 	for directoryQueue.Length() != 0 {
-		currentDir, currentDepth := directoryQueue.Dequeue()
-		if currentDir == "" || (depth != 0 && currentDepth == depth) {
+		currentDir, ok := directoryQueue.Dequeue()
+		if !ok || (depth != 0 && currentDir.depth == depth) {
 			break
 		}
 
-		dirEntries, err := os.ReadDir(currentDir)
+		dirEntries, err := os.ReadDir(currentDir.path)
 		if err != nil {
 			return err
 		}
 
 		for _, entry := range dirEntries {
-			entryPath := path.Join(currentDir, entry.Name())
+			entryPath := path.Join(currentDir.path, entry.Name())
 			if entry.IsDir() {
-				directoryQueue.Enqueue(entryPath, currentDepth+1)
+				directoryQueue.Enqueue(directory{entryPath, currentDir.depth + 1})
 			} else {
 				files = append(files, entryPath)
 			}
