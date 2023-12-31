@@ -13,7 +13,7 @@ Following Pull Requests will be appreciated!
 ## CLI
 
 ```bash
-$ go install github.com/ravilock/dedupgo@latset
+go install github.com/ravilock/dedupgo@latset
 ```
 
 Dedupgo can be used with CLI
@@ -21,7 +21,7 @@ Dedupgo can be used with CLI
 ### Basic Usage
 
 ```bash
-$ dedupgo find directory-path
+dedupgo find directory-path
 ```
 
 This will iterate over the files in the passed directory looking for files that have the same content
@@ -29,7 +29,7 @@ This will iterate over the files in the passed directory looking for files that 
 ### Recursive
 
 ```bash
-$ dedupgo find directory-path -r
+dedupgo find directory-path -r
 ```
 
 This will recursively search through all sub-directories of the passed directory looking for files that have the same content,
@@ -38,7 +38,7 @@ this option will only stop when there are not sub-directories left
 ### In-Depth
 
 ```bash
-$ dedupgo find directory-path -d 4
+dedupgo find directory-path -d 4
 ```
 
 This works similarly to recursive but will define a sub-directory depth limit,
@@ -49,7 +49,7 @@ this will only dive to the 4-th directory depth
 Use in your Go project:
 
 ```bash
-$ go get github.com/ravilock/dedupgo/dedup
+go get github.com/ravilock/dedupgo/dedup
 ```
 
 
