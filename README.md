@@ -13,7 +13,7 @@ Following Pull Requests will be appreciated!
 ## CLI
 
 ```bash
-go install github.com/ravilock/dedupgo@latset
+go install github.com/ravilock/dedupgo@latest
 ```
 
 Dedupgo can be used with CLI
