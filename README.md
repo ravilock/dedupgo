@@ -5,6 +5,7 @@ Can be used to find identical files under a directory programmatically or via CL
 # Contributing
 
 Feel free to open issues for bugs, feature requests, improvements and missing tests.
+
 Following Pull Requests will be appreciated!
 
 # Installation
