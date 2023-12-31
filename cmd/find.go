@@ -58,7 +58,7 @@ func findCommand(cmd *cobra.Command, args []string) error {
 		return nil
 	}
 	for _, value := range filesByHash {
-		fmt.Printf("%s are duplicate files\n", value)
+		fmt.Printf("%s are duplicated files\n", value)
 	}
 	return nil
 }
