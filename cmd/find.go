@@ -8,8 +8,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// TODO: defer all directory and file closes calls
-
 func init() {
 	rootCmd.AddCommand(findCmd)
 
@@ -53,12 +51,14 @@ func findCommand(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		return err
 	}
+
 	if len(filesByHash) == 0 {
 		fmt.Println("No duplicates found")
 		return nil
 	}
-	for _, value := range filesByHash {
-		fmt.Printf("%s are duplicated files\n", value)
+
+	for hash, value := range filesByHash {
+		fmt.Printf("%s are duplicated files under the hash %q\n", value, hash)
 	}
 	return nil
 }
