@@ -11,9 +11,7 @@ var rootCmd = &cobra.Command{
 	Use:   "dedupgo",
 	Short: "Dedupgo is a simple duplicate file finder",
 	Long:  `A simple duplicate file finder that uses sha256 to compare files.`,
-	Run: func(cmd *cobra.Command, args []string) {
-
-	},
+	Run:   func(cmd *cobra.Command, args []string) {},
 }
 
 func Execute() {

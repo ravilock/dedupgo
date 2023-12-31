@@ -32,22 +32,22 @@ func (q *Queue[T]) Enqueue(data T) {
 	q.last = node
 }
 
-func (q *Queue[T]) Dequeue() T {
+func (q *Queue[T]) Dequeue() (T, bool) {
 	var x T
 	if q.length == 0 {
-		return x
+		return x, false
 	}
-	returnValue := q.first.value
+	previousFirst := q.first
 	if q.length == 1 {
 		q.first = nil
 		q.last = nil
 		q.length = 0
-		return returnValue
+		return previousFirst.value, true
 	}
 	q.length -= 1
 	q.first = q.first.next
 	if q.length == 1 {
 		q.last = q.first
 	}
-	return returnValue
+	return previousFirst.value, true
 }
